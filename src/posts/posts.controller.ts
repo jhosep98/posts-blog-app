@@ -5,6 +5,7 @@ import {
   HttpStatus,
   Param,
   Post,
+  Put,
   Res,
 } from '@nestjs/common';
 import { CreatePostDto } from './dto/create-post.dto';
@@ -47,6 +48,23 @@ export class PostsController {
       .then((post) => {
         res.status(HttpStatus.OK).json({
           data: post,
+        });
+      })
+      .catch(() => res.status(HttpStatus.FORBIDDEN));
+  }
+
+  @Put(':id')
+  update(
+    @Res() res: Response,
+    @Param('id') id: string,
+    @Body() createPostDto: CreatePostDto,
+  ) {
+    this.postService
+      .updatePost(id, createPostDto)
+      .then((post) => {
+        res.status(HttpStatus.OK).json({
+          message: 'Post updated successfully',
+          post,
         });
       })
       .catch(() => res.status(HttpStatus.FORBIDDEN));

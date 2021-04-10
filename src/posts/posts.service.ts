@@ -24,4 +24,9 @@ export class PostsService {
     const post = await this.postRepository.findOne(id);
     return post;
   }
+
+  async updatePost(id: string, postBg: CreatePostDto) {
+    const updatePost = await this.postRepository.update(id, postBg);
+    return updatePost;
+  }
 }
