@@ -29,4 +29,9 @@ export class PostsService {
     const updatePost = await this.postRepository.update(id, postBg);
     return updatePost;
   }
+
+  async deletePost(id: string) {
+    const deletePost = await this.postRepository.delete(id);
+    return deletePost;
+  }
 }

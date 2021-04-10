@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   HttpStatus,
   Param,
@@ -64,6 +65,19 @@ export class PostsController {
       .then((post) => {
         res.status(HttpStatus.OK).json({
           message: 'Post updated successfully',
+          post,
+        });
+      })
+      .catch(() => res.status(HttpStatus.FORBIDDEN));
+  }
+
+  @Delete(':id')
+  delete(@Res() res: Response, @Param('id') id: string) {
+    this.postService
+      .deletePost(id)
+      .then((post) => {
+        res.status(HttpStatus.OK).json({
+          message: 'Post deleted successfully',
           post,
         });
       })
