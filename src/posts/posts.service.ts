@@ -14,4 +14,9 @@ export class PostsService {
     const newPost = await this.postRepository.save(postBg);
     return newPost;
   }
+
+  async findAllPosts(): Promise<PostBg[]> {
+    const posts = await this.postRepository.find();
+    return posts;
+  }
 }
