@@ -19,4 +19,9 @@ export class PostsService {
     const posts = await this.postRepository.find();
     return posts;
   }
+
+  async findOnePost(id: string): Promise<PostBg> {
+    const post = await this.postRepository.findOne(id);
+    return post;
+  }
 }

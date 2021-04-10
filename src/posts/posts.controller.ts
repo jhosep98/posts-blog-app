@@ -1,4 +1,12 @@
-import { Body, Controller, Get, HttpStatus, Post, Res } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpStatus,
+  Param,
+  Post,
+  Res,
+} from '@nestjs/common';
 import { CreatePostDto } from './dto/create-post.dto';
 import { Response } from 'express';
 import { PostsService } from './posts.service';
@@ -27,6 +35,18 @@ export class PostsController {
       .then((posts) => {
         res.status(HttpStatus.OK).json({
           data: posts,
+        });
+      })
+      .catch(() => res.status(HttpStatus.FORBIDDEN));
+  }
+
+  @Get(':id')
+  getOne(@Res() res: Response, @Param('id') id: string) {
+    this.postService
+      .findOnePost(id)
+      .then((post) => {
+        res.status(HttpStatus.OK).json({
+          data: post,
         });
       })
       .catch(() => res.status(HttpStatus.FORBIDDEN));
